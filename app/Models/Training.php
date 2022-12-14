@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Training extends Model
 {
     use HasFactory;
+    
+    public function machines()
+    {
+        return $this->belogsToMany(Machine::class);
+    }
 }

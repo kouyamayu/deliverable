@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Gym extends Model
 {
     use HasFactory;
+    
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+    
+    public function machines()
+    {
+        return $this->belongsToMany(Machine::class);
+    }
 }
