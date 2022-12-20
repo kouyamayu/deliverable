@@ -11,13 +11,13 @@
     </head>
     <body>
         <h1>Sugugym</h1>
-        <form method="GET" action="{{ route('search') }}">
-            {{ csrf_field() }}
+        <form method="POST" action="/gyms/search">
+            @csrf
             <input type="search" placeholder="店舗名を入力" name="search" value="@if (isset($search)) {{ $search }} @endif">
             <div>
                 <button type="submit">検索</button>
                 <button>
-                    <a href="{{ route('index') }}" class="text-white">
+                    <a href="/" class="text-white">
                         クリア
                     </a>
                 </button>

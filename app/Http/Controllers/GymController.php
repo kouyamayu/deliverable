@@ -13,27 +13,47 @@ class GymController extends Controller
         return view('gyms/index')->with(['gyms' =>$gym->getPaginateByLimit()]); 
     }
     
-    public function search(Request $request)
+    public function search(Request $request, Gym $gym)
     {
-        $gyms ->getPaginateByLimit;
+        $gyms =$gym->getPaginateByLimit();
         $search = $request->input('search');
-        $query = Gym::query();
+       // $query = Gym::query();
         if ($search) 
         {
             $spaceConversion = mb_convert_kana($search, 's');
             $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
             foreach($wordArraySearched as $value)
             {
-                $query->where('name', 'like', '%'.$value.'%')->orWhere('contents','like','%'.$value.'%')->orWhere('address','like','%'.$value.'%');
+               // $query->where('name', 'like', '%'.$value.'%')->orWhere('contents','like','%'.$value.'%')->orWhere('address','like','%'.$value.'%');
+            
+                $gyms=Gym::where('name', 'like', '%'.$value.'%')->orWhere('contents','like','%'.$value.'%')->orWhere('address','like','%'.$value.'%');
+            
+                
             }
-            $gyms = $query->getPaginateByLimit;
-
+           // $gyms = $query->getPaginateByLimit();
+            $gyms=$gyms->orderBy('updated_at','DESC')->paginate(20);
         }
-        return view('gyms.search')
+            return view('gyms.search')
             ->with([
                 'gyms' => $gyms,
                 'search' => $search,
             ]);
+    }
+    
+    public function clear(Gym $gym)
+        {
+            return view('gyms.search')->with(['gyms' =>$gym->getPaginateByLimit()]);  
+        }
+    
+    public function sort(Gym $gym)
+        {
+            $gyms = $gym->getByPrice();
+            return view('gyms.search')->with(['gyms' =>$gyms]);
+        }
+        
+    public function show(Gym $gym)
+    {
+        return view('gyms/show')->with(['gym' => $gym]);
     }
 }
 ?>
