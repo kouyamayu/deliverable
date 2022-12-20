@@ -18,4 +18,9 @@ class City extends Model
     {
         return $this->hasMany(Gym::class);
     }
+    
+    public function getByCity(int $limit_count=10)
+    {
+        return $this->gyms()->with('city')->orderBy('updated_at','DESC')->paginate($limit_count);
+    }
 }

@@ -14,5 +14,8 @@ use App\Http\Controllers\GymController;
 |
 */
 
-Route::get('/', [GymController::class,'index'])->name('index');
-Route::get('/gyms/search',[GymController::class,'search'])->name('search');
+Route::get('/', [GymController::class,'index']);
+Route::post('/gyms/search',[GymController::class,'search']);
+Route::get('/gyms/search',[GymController::class,'clear']);
+Route::get('/gyms/sort',[GymController::class,'sort']);
+Route::get('/gyms/{gym}', [GymController::class ,'show']);
