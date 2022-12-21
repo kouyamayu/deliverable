@@ -17,9 +17,27 @@ class GymController extends Controller
     {
         $gyms =$gym->getPaginateByLimit();
         $search = $request->input('search');
-       // $query = Gym::query();
-        if ($search) 
+        if($request->has('searchButton'))
         {
+            if ($search) 
+            {
+                $spaceConversion = mb_convert_kana($search, 's');
+                $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+                foreach($wordArraySearched as $value)
+                {
+                   // $query->where('name', 'like', '%'.$value.'%')->orWhere('contents','like','%'.$value.'%')->orWhere('address','like','%'.$value.'%');
+                
+                    $gyms=Gym::where('name', 'like', '%'.$value.'%')->orWhere('contents','like','%'.$value.'%')->orWhere('address','like','%'.$value.'%');
+                
+                    
+                }
+               // $gyms = $query->getPaginateByLimit();
+                $gyms=$gyms->orderBy('updated_at','DESC')->paginate(20);
+            }
+        }elseif ($request->has('sortButton'))
+        {
+          if ($search) 
+            {
             $spaceConversion = mb_convert_kana($search, 's');
             $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
             foreach($wordArraySearched as $value)
@@ -31,7 +49,8 @@ class GymController extends Controller
                 
             }
            // $gyms = $query->getPaginateByLimit();
-            $gyms=$gyms->orderBy('updated_at','DESC')->paginate(20);
+            $gyms=$gyms->orderBy('price','asc')->paginate(20);
+            }  
         }
             return view('gyms.search')
             ->with([
@@ -41,15 +60,9 @@ class GymController extends Controller
     }
     
     public function clear(Gym $gym)
-        {
-            return view('gyms.search')->with(['gyms' =>$gym->getPaginateByLimit()]);  
-        }
-    
-    public function sort(Gym $gym)
-        {
-            $gyms = $gym->getByPrice();
-            return view('gyms.search')->with(['gyms' =>$gyms]);
-        }
+    {
+        return view('gyms.search')->with(['gyms' =>$gym->getPaginateByLimit()]);  
+    }
         
     public function show(Gym $gym)
     {

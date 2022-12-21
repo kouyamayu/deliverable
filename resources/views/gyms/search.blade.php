@@ -15,12 +15,13 @@
             @csrf
             <input type="search" placeholder="店舗名を入力" name="search" value="@if (isset($search)) {{ $search }} @endif">
             <div>
-                <button type="submit">検索</button>
+                <button type="submit" name="searchButton">検索</button>
                 <button>
                     <a href="/gyms/search" class="text-white">
                         クリア
                     </a>
                 </button>
+                <button type="submit" name="sortButton">月額が安い順に並び替え</button>
             </div>
         </form>
         <div class="container-fluid bg-light ">
@@ -71,11 +72,6 @@
                 </div>
         	</div>
         </div>
-        <button>
-            <a href="/gyms/sort" class="sort">
-            月額が安い順に並び替え
-            </a>
-        </button>
         <div class ="gyms">
             @foreach($gyms as $gym)
                 <div class ="gym">
