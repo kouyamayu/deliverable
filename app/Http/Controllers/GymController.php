@@ -99,5 +99,16 @@ class GymController extends Controller
         $gym->fill($input)->save();
         return redirect('/gyms/' . $gym->id);
     }
+    
+    public function deletepage(Gym $gym)
+    {
+        return view('gyms/delete')->with(['gyms' =>$gym->getPaginateByLimit()]); 
+    }
+    
+    public function delete(Gym $gym)
+    {
+    $gym->delete();
+    return redirect('/gyms/delete');
+    }
 }
 ?>
