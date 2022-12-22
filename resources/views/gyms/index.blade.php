@@ -75,5 +75,8 @@
                 </div>
         	</div>
         </div>
+        <button class ='prefecture'>
+        <a href="/gyms/prefecture">create</a>
+        </button>
     </body>
 </html>

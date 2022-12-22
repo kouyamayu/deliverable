@@ -15,6 +15,10 @@ use App\Http\Controllers\GymController;
 */
 
 Route::get('/', [GymController::class,'index']);
+Route::get('/gyms/prefecture',[GymController::class,'prefecture']);
+Route::post('/gyms/city', [GymController::class, 'city']);
+Route::post('/gyms/create', [GymController::class, 'create']);
+Route::post('/gyms', [GymController::class, 'store']);
 Route::post('/gyms/search',[GymController::class,'search']);
 Route::get('/gyms/search',[GymController::class,'clear']);
 Route::get('/gyms/{gym}', [GymController::class ,'show']);
