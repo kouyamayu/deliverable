@@ -78,5 +78,8 @@
         <button class ='prefecture'>
         <a href="/gyms/prefecture">create</a>
         </button>
+        <button class ='deletepage'>
+        <a href="/gyms/delete">delete</a>
+        </button>
     </body>
 </html>
