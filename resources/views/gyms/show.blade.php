@@ -22,6 +22,9 @@
         <button class ='url'>
             <a href ="{{ $gym->url }}">公式サイトへ</a>
         </button>
+        <div class="edit">
+            <a href="/gyms/{{ $gym->id }}/edit">edit</a>
+        </div>
         <div class="footer">
             <a href="/">戻る</a>
         </div>

@@ -100,6 +100,18 @@ class GymController extends Controller
         return redirect('/gyms/' . $gym->id);
     }
     
+    public function edit(Gym $gym, City $city)
+    {
+        return view('gyms/edit')->with(['gym' => $gym, 'cities' => $city->get()]);
+    }
+    
+    public function update(Request $request, Gym $gym)
+    {
+        $input_gym = $request['gym'];
+        $gym->fill($input_gym)->save();
+        return redirect('/gyms/' . $gym->id);
+        }
+    
     public function deletepage(Gym $gym)
     {
         return view('gyms/delete')->with(['gyms' =>$gym->getPaginateByLimit()]); 
