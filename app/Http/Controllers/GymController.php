@@ -122,5 +122,6 @@ class GymController extends Controller
     $gym->delete();
     return redirect('/gyms/delete');
     }
+    //ai
 }
 ?>
